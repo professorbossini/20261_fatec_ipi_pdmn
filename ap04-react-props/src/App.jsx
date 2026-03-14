@@ -1,6 +1,18 @@
 import Pedido from "./Pedido"
 import Cartao from "./Cartao"
+import Feedback from "./Feedback"
 const App = () => {
+  const textoOK = 'Já chegou'
+  const textoNOK = 'Não chegou ainda'
+  const funcaoOK = () => alert('Obrigado pelo feedback')
+  const funcaoNOK = () => alert('Verificaremos')
+  const componenteFeedback = (
+    <Feedback 
+      textoOK={textoOK}
+      textoNOK={textoNOK}
+      funcaoOK={funcaoOK}
+      funcaoNOK={funcaoNOK}/>
+  )
   return (
     <div className="container border">
       <div className="row">
@@ -15,6 +27,7 @@ const App = () => {
               icone="book"
               titulo="Livro"
               descricao="Um livro bom..."/>
+              {componenteFeedback}
           </Cartao>
         </div>
         <div className="col-sm-12 col-md-6 col-xl-3 ">
@@ -23,6 +36,7 @@ const App = () => {
               icone="bicycle"
               titulo="Bicicleta"
               descricao="Bicicleta 18 marchas"/>
+              {componenteFeedback}
           </Cartao>
         </div>
         <div className="col-sm-12 col-md-6 col-xl-3 ">
@@ -31,6 +45,7 @@ const App = () => {
               icone="hippo"
               titulo="Hipopótamo"
               descricao="Um hipo filhote"/>
+              {componenteFeedback}
           </Cartao>
         </div>
         <div className="col-sm-12 col-md-6 col-xl-3">
@@ -39,6 +54,7 @@ const App = () => {
               icone="camera"
               titulo="Camera"
               descricao="Camera 4K"/>
+              {componenteFeedback}
           </Cartao>
         </div>
       </div>
