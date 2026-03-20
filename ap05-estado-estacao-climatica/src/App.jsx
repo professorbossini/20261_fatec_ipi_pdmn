@@ -7,6 +7,7 @@ const App = () => {
   const [estacao, setEstacao] = useState(null)
   const [data, setData] = useState(null)
   const [icone, setIcone] = useState(null)
+  const [mensagemDeErro, setMensagemDeErro] = useState(null)
 
    const icones = {
     'Primavera': 'cloud-sun',
@@ -52,6 +53,7 @@ const App = () => {
       }, 
       (err) => {
         console.log(err)
+        setMensagemDeErro('É preciso liberar o acesso à localização para ver a sua estação climática')
       }
     )
   }
@@ -80,7 +82,11 @@ const App = () => {
                 <p className="text-center">
                   {
                     latitude ? 
-                      `Coordenadas: ${latitude},${longitude}. Data: ${data}` : 
+                      `Coordenadas: ${latitude},${longitude}. Data: ${data}`
+                    :
+                    mensagemDeErro ?
+                      mensagemDeErro
+                    : 
                       'Clique no botão para ver a sua estação climática.'
                   }
                 </p>
