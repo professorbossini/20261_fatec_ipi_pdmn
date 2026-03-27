@@ -1,5 +1,7 @@
 // rafce
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
+import EstacaoClimatica from './EstacaoClimatica'
+import Loading from './Loading'
 
 const App = () => {
   const [latitude, setLatitude] = useState(null)
@@ -12,7 +14,7 @@ const App = () => {
    const icones = {
     'Primavera': 'cloud-sun',
     'Verão': 'sun',
-    'Outono': 'canadian-maple-leaf',
+    'Outono': 'leaf',
     'Inverno': 'snowflake'
   }
 
@@ -58,46 +60,29 @@ const App = () => {
     )
   }
 
- 
+  useEffect(() => {
+    console.log('useEffect executou...')
+    obterLocalizacao()
+  }, [])
+  console.log('renderizou...')
   return (
     <div className='container mt-2'>
       <div className="row justify-content-center">
         <div className="col-12">
           {/* .card>.card-body */}
-          <div className="card">
-            <div className="card-body">
-
-              <div 
-                style={{height: '6rem'}}
-                className="d-flex align-items-center">
-                  {/* i.fa-solid.fa-3x */}
-                  <i className={`fa-solid fa-3x fa-${icone}`}></i>
-                  {/* p.w-75.ms-3.text-center.fs-1 */}
-                  <p className="w-75 ms-3 text-center fs-1">
-                    {estacao}
-                  </p>
-              </div>
-
-              <div>
-                <p className="text-center">
-                  {
-                    latitude ? 
-                      `Coordenadas: ${latitude},${longitude}. Data: ${data}`
-                    :
-                    mensagemDeErro ?
-                      mensagemDeErro
-                    : 
-                      'Clique no botão para ver a sua estação climática.'
-                  }
-                </p>
-              </div>
-              <button 
-                className='btn btn-outline-primary w-100 mt-2'
-                onClick={() => obterLocalizacao()}>
-                  Qual a minha estação?
-              </button>
-            </div>
-          </div>
+          {
+            (!latitude && !mensagemDeErro) ?
+             <Loading /> :
+            mensagemDeErro ?
+              mensagemDeErro
+            :
+            <EstacaoClimatica 
+              icone={icone}
+              estacao={estacao}
+              latitude={latitude}
+              longitude={longitude}
+              obterLocalizacao={obterLocalizacao}/>
+          }
         </div>
       </div>
     </div>
